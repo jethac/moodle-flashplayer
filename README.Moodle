@@ -1,0 +1,13 @@
+moodle-flashplayer
+=====================
+
+This is a modified version of FlowPlayer. In accordance with the FlowPlayer
+GPL license, it has been renamed to "moodle-flashplayer".
+
+Website: http://flowplayer.org
+Version: 3.2.18dev
+
+Changes:
+
+  * Edited to address a security vulnerability
+  * Removed the proprietary bits from the source zipfile
