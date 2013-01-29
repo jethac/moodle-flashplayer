@@ -30,10 +30,10 @@ package org.flowplayer.view {
 		public static function createCopyrightNotice(fontSize:int):TextField {
 			var copyrightNotice:TextField = TextUtil.createTextField(false, null, fontSize, false);
 			var date:Date = new Date();
-			copyrightNotice.text = "© 2008-" + date.fullYear + " Flowplayer Ltd";
+			copyrightNotice.text = "Based on Flowplayer source code";
 			copyrightNotice.textColor = 0x888888;
 			copyrightNotice.height = 15;
-			copyrightNotice.width = 120;
+			copyrightNotice.width = 150;
 			return copyrightNotice;
 		}
 	}
