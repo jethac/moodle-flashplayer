@@ -6,7 +6,7 @@
 
     <!-- filename for the plugin swf -->
     <property name="shortname" value="controls" />
-    <property name="basename" value="flowplayer.${shortname}" />
+    <property name="basename" value="moodle-flashplayer.${shortname}" />
     <property name="basename_yaml" value="${basename}" />
     <property name="shortname_yaml" value="${shortname}" />
 
@@ -21,7 +21,7 @@
     <property file="../../../flash-build/plugin-build.properties" />
     <import file="../../../flash-build/plugin-build.xml"/>
 
-    <property name="plugin-binary" value="${basename}.swf" />
+    <property name="plugin-binary" value="moodle-flashplayer.controls.swf" />
     <property name="plugin-binary-versioned" value="${basename}-${version}.swf" />
     <property name="plugin-main-class" value="org/flowplayer/controls/Controls.as" />
     <property name="compiler-define" value="CONFIG::skin,'true' -define=CONFIG::hasSlowMotion,'true'" />

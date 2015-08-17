@@ -2,13 +2,13 @@
     <property file="build.generated.properties"/>
 	<property file="${user.home}/plugin.properties" />
 	<property file="build.properties" />
-	
+
 	<property file="../../../flash-build/plugin-build.properties" />
 	<import file="../../../flash-build/plugin-build.xml"/>
 	<property name="flowplayer_lib" value="${devkit-dir}/flowplayer.swc" />
-	
+
 	<property name="shortname" value="audio" />
-    <property name="basename" value="flowplayer.${shortname}" />
+    <property name="basename" value="moodle-flashplayer.${shortname}" />
     <property name="basename_yaml" value="${basename}" />
     <property name="shortname_yaml" value="${shortname}" />
 
@@ -16,7 +16,7 @@
 	<property name="plugin-binary" value="${basename}.swf" />
 	<property name="plugin-binary-versioned" value="${basename}-${version}.swf" />
 	<property name="plugin-swc" value="${basename}.swc" />
-	
+
 	<property name="plugin-main-class" value="org/flowplayer/audio/AudioProviderFactory.as" />
 
 	<target name="release" description="makes a release" depends="build">

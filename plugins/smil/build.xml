@@ -7,7 +7,7 @@
 
 	<property name="version" value="3.2.9" />
 	<property name="shortname" value="smil" />
-    <property name="basename" value="flowplayer.${shortname}" />
+    <property name="basename" value="moodle-flashplayer.${shortname}" />
     <property name="basename_yaml" value="${basename}" />
     <property name="shortname_yaml" value="${shortname}" />
 

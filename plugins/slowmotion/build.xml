@@ -8,7 +8,7 @@
 
 	<property name="version" value="3.2.10" />
 	<property name="shortname" value="slowmotion" />
-    <property name="basename" value="flowplayer.${shortname}" />
+    <property name="basename" value="moodle-flashplayer.${shortname}" />
     <property name="basename_yaml" value="${basename}" />
     <property name="shortname_yaml" value="${shortname}" />
 
