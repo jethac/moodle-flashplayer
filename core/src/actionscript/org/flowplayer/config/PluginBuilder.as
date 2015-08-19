@@ -182,22 +182,22 @@ package org.flowplayer.config {
 			var playerVersion:String = getPlayerVersion();
             log.debug("player version detected from SWF name is " + playerVersion);
 			if (playerVersion) {
-				return "flowplayer." + name + "-" + version + ".swf";
+				return "moodle-flashplayer." + name + "-" + version + ".swf";
 			} else {
-				return "flowplayer." + name + ".swf";
+				return "moodle-flashplayer." + name + ".swf";
 			}
 		}
-		
+
 		private function getPlayerVersion():String {
-			var version:String = getVersionFromSwfName("flowplayer");
+			var version:String = getVersionFromSwfName("moodle-flashplayer");
             if (version) return version;
 
-            version = getVersionFromSwfName("flowplayer.commercial");
+            version = getVersionFromSwfName("moodle-flashplayer.commercial");
             if (version) return version;
 
-            return getVersionFromSwfName("flowplayer.unlimited");
+            return getVersionFromSwfName("moodle-flashplayer.unlimited");
 		}
-		
+
 		private function getVersionFromSwfName(swfName:String):String {
             log.debug("getVersionFromSwfName() " + playerSwfName);
 			if (playerSwfName.indexOf(swfName + "-") < 0) return null;
