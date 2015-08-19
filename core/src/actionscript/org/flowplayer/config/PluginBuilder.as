@@ -147,7 +147,7 @@ package org.flowplayer.config {
 		}
 		
 		private function initLoadable(name:String, version:String):Loadable {
-            log.debug("createLoadable() '" + name + "' version " + version);
+            log.debug("initLoadable() '" + name + "' version " + version);
 			if (isObjectDisabled(name, _pluginObjects)) {
 				log.debug(name + " is disabled");
 				return null;
@@ -164,7 +164,7 @@ package org.flowplayer.config {
 			if (! loadable.url) {
 				loadable.url = getLoadableUrl(name, version);
 			}
-            log.debug("createLoadable(), created loadable with url " + loadable.url)
+            log.debug("initLoadable(), created loadable with url " + loadable.url)
             return loadable;
 		}
 		
