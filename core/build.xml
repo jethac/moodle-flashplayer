@@ -66,28 +66,28 @@
     <property name="library-binary-versioned" value="flowplayer-${version-info}.swc"/>
 
     <property name="player-binary" value="moodle-flashplayer.swf"/>
-    <property name="debug-player-binary" value="flowplayer.debug.swf"/>
-    <property name="commercial-debug-player-binary" value="flowplayer.commercial.debug.swf"/>
-    <property name="commercial-player-binary" value="flowplayer.commercial.swf"/>
-    <property name="player-binary-versioned" value="flowplayer-${version-info}.swf"/>
-    <property name="commercial-player-binary-versioned" value="flowplayer.commercial-${version-info}.swf"/>
+    <property name="debug-player-binary" value="moodle-flashplayer.debug.swf"/>
+    <property name="commercial-debug-player-binary" value="moodle-flashplayer.commercial.debug.swf"/>
+    <property name="commercial-player-binary" value="moodle-flashplayer.commercial.swf"/>
+    <property name="player-binary-versioned" value="moodle-flashplayer-${version-info}.swf"/>
+    <property name="commercial-player-binary-versioned" value="moodle-flashplayer.commercial-${version-info}.swf"/>
 
-    <property name="dist-name" value="flowplayer-${version-info}.zip"/>
-    <property name="dist-target-name" value="flowplayer-${version-info}-${flash.target.player}.zip"/>
-    <property name="commercial-dist-name" value="flowplayer.commercial-${version-info}.zip"/>
-    <property name="commercial-dist-target-name" value="flowplayer.commercial-${version-info}-${flash.target.player}.zip"/>
-    <property name="multidomain-dist-name" value="flowplayer.multidomain-${version-info}.zip"/>
-    <property name="multidomain-dist-target-name" value="flowplayer.multidomain-${version-info}-${flash.target.player}.zip"/>
-    <property name="devkit-dist-name" value="flowplayer.devkit-${version-info}.zip"/>
-    <property name="apidoc-dist-name" value="flowplayer.asdoc-${version-info}.zip"/>
-    <property name="source-dist-name" value="flowplayer-${version-info}-src.zip"/>
+    <property name="dist-name" value="moodle-flashplayer-${version-info}.zip"/>
+    <property name="dist-target-name" value="moodle-flashplayer-${version-info}-${flash.target.player}.zip"/>
+    <property name="commercial-dist-name" value="moodle-flashplayer.commercial-${version-info}.zip"/>
+    <property name="commercial-dist-target-name" value="moodle-flashplayer.commercial-${version-info}-${flash.target.player}.zip"/>
+    <property name="multidomain-dist-name" value="moodle-flashplayer.multidomain-${version-info}.zip"/>
+    <property name="multidomain-dist-target-name" value="moodle-flashplayer.multidomain-${version-info}-${flash.target.player}.zip"/>
+    <property name="devkit-dist-name" value="moodle-flashplayer.devkit-${version-info}.zip"/>
+    <property name="apidoc-dist-name" value="moodle-flashplayer.asdoc-${version-info}.zip"/>
+    <property name="source-dist-name" value="moodle-flashplayer-${version-info}-src.zip"/>
 
-    <property name="dist-name-dev" value="flowplayer.zip"/>
-    <property name="commercial-dist-name-dev" value="flowplayer.commercial.zip"/>
-    <property name="multidomain-dist-name-dev" value="flowplayer.multidomain.zip"/>
-    <property name="devkit-dist-name-dev" value="flowplayer.devkit.zip"/>
-    <property name="apidoc-dist-name-dev" value="flowplayer.asdoc.zip"/>
-    <property name="source-dist-name-dev" value="flowplayer-src.zip"/>
+    <property name="dist-name-dev" value="moodle-flashplayer.zip"/>
+    <property name="commercial-dist-name-dev" value="moodle-flashplayer.commercial.zip"/>
+    <property name="multidomain-dist-name-dev" value="moodle-flashplayer.multidomain.zip"/>
+    <property name="devkit-dist-name-dev" value="moodle-flashplayer.devkit.zip"/>
+    <property name="apidoc-dist-name-dev" value="moodle-flashplayer.asdoc.zip"/>
+    <property name="source-dist-name-dev" value="moodle-flashplayer-src.zip"/>
 
     <target name="clean" depends="clean-plugins">
         <delete dir="${build-dir}">
