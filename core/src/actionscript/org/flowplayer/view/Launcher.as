@@ -686,7 +686,7 @@ package org.flowplayer.view {
                     if (!newConfigObj.hasOwnProperty("plugins")) {
                         newConfigObj["plugins"] = {};
                     }
-                    //newConfigObj["plugins"]["audio"] = configObj["plugins"]["audio"];
+                    newConfigObj["plugins"]["audio"] = configObj["plugins"]["audio"];
                 }
                 if (configObj.hasOwnProperty("controls")) {
                     // TODO allow controls->/.*Color$/ (need regex)
