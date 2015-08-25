@@ -66,7 +66,8 @@ public class BuiltInConfig {
                 "volume": true,
                 "mute": false,
                 "backgroundGradient": [0.5,0,0.3]
-            }
+            },
+            "audio": {}
         },
         "clip": {
             "provider": "audio",
