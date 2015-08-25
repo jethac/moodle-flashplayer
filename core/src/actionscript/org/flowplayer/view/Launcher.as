@@ -621,14 +621,58 @@ package org.flowplayer.view {
 		}
 
 		private function createFlashVarsConfig():void {
-            log.debug("createFlashVarsConfig()");
+            log.info("createFlashVarsConfig()");
 			if (! root.loaderInfo.parameters) {
 				return;
 			}
             var configStr:String = Preloader(root).injectedConfig || root.loaderInfo.parameters["config"];
-            var configObj:Object = configStr && configStr.indexOf("{") == 0 ? ConfigParser.parse(configStr) : {};
+
+            // ...why the logic relating to configStr wasn't here originally is beyond me.
+            // First, consider the configStr to be JSON if it is non-null and starts with {.
+            var configIsJSON:Boolean = configStr && configStr.indexOf("{") == 0;
+
+            // configObj: if the configStr is valid JSON, parse it otherwise create as an empty object.
+            var configObj:Object = configIsJSON ? ConfigParser.parse(configStr) : {};
+
+            // Second, the config is remote if the user passed in a URL (in which case it wouldn't be
+            // valid JSON) or a JSON object that contains a URL key.
+            var configIsRemote:Boolean = configObj.hasOwnProperty("url") || !configIsJSON;
+
+            // Third, if the config is remote, hold on a damn second, let's load it now. It doesn't make
+            // sense to load it later, because if we do that then we have to validate in two different
+            // places.
+            if (configIsRemote) {
+                var rsrcloader:ResourceLoader = new ResourceLoaderImpl(null, this);
+                rsrcloader.load(
+                    configObj.hasOwnProperty("url") ? String(configObj["url"]) : configStr,
+                    function(rsrcloader:ResourceLoader):void {
+
+                        var remoteConfig:Object = rsrcloader.getContent();
+                        var remoteConfigStr = remoteConfig is String ? remoteConfig as String : "";
+                        var remoteConfigIsJSON = remoteConfigStr && remoteConfigStr.indexOf("{") == 0;
+
+                        if (remoteConfigIsJSON) {
+                            configIsJSON = true;
+                            configStr = remoteConfigStr;
+                            configObj = ConfigParser.parse(remoteConfigStr);
+                        }
+
+                    },
+                    true
+                );
+            }
+
             var builtInConfig:Object;
             var newConfigObj:Object = {};
+
+            /**
+             * If:
+             * - the config object has a clip, and
+             * - the clip has a provider of type audio
+             *
+             * Then:
+             * - use the built-in audio config
+             */
             if (configObj.hasOwnProperty("clip") && configObj["clip"].hasOwnProperty("provider") && configObj["clip"]["provider"] == "audio") {
                 if (!newConfigObj.hasOwnProperty("clip")) {
                     newConfigObj["clip"] = {};
@@ -673,19 +717,19 @@ package org.flowplayer.view {
                 // So config requires a playlist array, which basically has same details as clip, but with defaults
                 builtInConfig = BuiltInConfig.videoconfig;
             }
+
             configObj = newConfigObj;
-//            configObj["log"] = {"level":"info"};
 
-            if (! configStr || (configStr && configStr.indexOf("{") == 0 && ! configObj.hasOwnProperty("url"))) {
-                _config = ConfigParser.parseConfig(configObj, builtInConfig, loaderInfo.url, VersionInfo.controlsVersion, VersionInfo.audioVersion);
-                callAndHandleError(initPhase1, PlayerError.INIT_FAILED);
+            _config = ConfigParser.parseConfig(
+                configObj,
+                builtInConfig,
+                loaderInfo.url,
+                VersionInfo.controlsVersion,
+                VersionInfo.audioVersion
+            );
+            Log.configure(_config.getLogConfiguration());
+            callAndHandleError(initPhase1, PlayerError.INIT_FAILED);
 
-            } else {
-                ConfigParser.loadConfig(configObj.hasOwnProperty("url") ? String(configObj["url"]) : configStr, builtInConfig, function(config:Config):void {
-                    _config = config;
-                    callAndHandleError(initPhase1, PlayerError.INIT_FAILED);
-                }, new ResourceLoaderImpl(null, this), loaderInfo.url, VersionInfo.controlsVersion, VersionInfo.audioVersion);
-            }
 		}
 
 		private function createPlayListController():PlayListController {
