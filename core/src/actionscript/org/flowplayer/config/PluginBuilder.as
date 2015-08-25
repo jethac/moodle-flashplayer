@@ -206,8 +206,12 @@ package org.flowplayer.config {
 		}
 
         private function get playerSwfName():String {
-            var lastSlash:Number = _playerURL.lastIndexOf("/");
-            return _playerURL.substring(lastSlash + 1, _playerURL.indexOf(".swf") + 4); 
+        	// Can't just find the last / in _playerURL - what happens if the
+        	// config is being loaded from another URL?
+            var splitOnSWF:Array = _playerURL.split(".swf", 2);
+            var lastSlash:Number = splitOnSWF[0].lastIndexOf("/");
+
+            return _playerURL.substring(lastSlash + 1, _playerURL.indexOf(".swf") + 4);
         }
 
 

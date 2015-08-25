@@ -627,20 +627,17 @@ package org.flowplayer.view {
 			}
             var configStr:String = Preloader(root).injectedConfig || root.loaderInfo.parameters["config"];
 
-            // ...why the logic relating to configStr wasn't here originally is beyond me.
-            // First, consider the configStr to be JSON if it is non-null and starts with {.
+            // Consider the configStr to be JSON if it is non-null and starts with {.
             var configIsJSON:Boolean = configStr && configStr.indexOf("{") == 0;
 
             // configObj: if the configStr is valid JSON, parse it otherwise create as an empty object.
             var configObj:Object = configIsJSON ? ConfigParser.parse(configStr) : {};
 
-            // Second, the config is remote if the user passed in a URL (in which case it wouldn't be
+            // The config is remote if the user passed in a URL (in which case it wouldn't be
             // valid JSON) or a JSON object that contains a URL key.
             var configIsRemote:Boolean = configObj.hasOwnProperty("url") || !configIsJSON;
 
-            // Third, if the config is remote, hold on a damn second, let's load it now. It doesn't make
-            // sense to load it later, because if we do that then we have to validate in two different
-            // places.
+            // If the config is remote, load it now.
             if (configIsRemote) {
                 var rsrcloader:ResourceLoader = new ResourceLoaderImpl(null, this);
                 rsrcloader.load(
