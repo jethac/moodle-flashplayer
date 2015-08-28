@@ -10,4 +10,4 @@ Version: 3.2.18dev
 Changes:
 
   * Edited to address a security vulnerability
-  * Removed the proprietary bits from the source zipfile
+  * Removed proprietary FlowPlayer logos from source Flash filess
