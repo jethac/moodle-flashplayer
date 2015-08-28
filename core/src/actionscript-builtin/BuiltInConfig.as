@@ -30,7 +30,6 @@ public class BuiltInConfig {
                 console.log(clip);\
                 if (clip.mvideo.autosize && !clip.mvideo.resized) {\
                     clip.mvido.resized = true;\
-                    alert(\"metadata!!! \"+clip.width+' '+clip.height+' '+JSON.stringify(clip.metaData));\
                     if (typeof(clip.metaData.width) == 'undefined' || typeof(clip.metaData.height) == 'undefined') {\
                         // bad luck, we have to guess - we may not get metadata at all\
                         var width = clip.width;\
